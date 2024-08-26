@@ -1,0 +1,70 @@
+{{ define "filterHolder" }}
+    <div class="filters-holder">
+        <form action="/" method="get" class="filters-container">
+            <!-- Header -->
+            <div class="filter-header">
+                <h2 class="filter-title">Filters</h2>
+                <div class="filters-exit-btn">
+                    <i id="exit" class='bx bx-x'></i>      
+                </div>
+            </div>
+
+            <!-- Creation Filter -->
+            <div class="filter-item-holder creation-filter">
+                <h3 class="filter-title">Creation Date Filter</h3>
+                <div class="filter-result">{{.CreationFilter.Min}} - {{.CreationFilter.Max}}</div>
+                    {{ template "creationRange" .CreationFilter}}
+            </div>
+
+            <!-- First Album Filter -->
+            <div class="filter-item-holder first-album-filter">
+                <h3 class="filter-title">First Album Date Filter</h3>
+                <div class="filter-result">{{.FirstAlbumFilter.Min}} - {{.FirstAlbumFilter.Max}}</div>
+                    {{ template "firstAlbumRange" .FirstAlbumFilter}}
+            </div>
+
+            <!-- Members Filter -->
+            <div class="filter-item-holder members-filter">
+                <h3 class="filter-title">Members Filter</h3>
+                <div class="filter-item-container">
+                    {{$checks := .MembersFilter.MembersChecked}}
+                    {{ range $key, $value := .MembersFilter.MembersSizes }}
+                        <div class="member-input">
+                            <input
+                            {{if index $checks $key}}
+                                checked
+                            {{end}}
+                             type="checkbox" name="members" id="member-{{$key}}" value="{{$key}}">
+                            <label for="member-{{$key}}">{{$key}}</label>
+                        </div>
+                    {{ end }}
+                </div>
+            </div>
+
+            <!-- Locations Filter -->
+            <div class="filter-item-holder locations-filter">
+                <h3 class="filter-title">Locations Filter</h3>
+                <div class="filter-item-container">
+                    <select name="location">
+                        <option value="none" disabled selected hidden>Select a Location</option>
+                        {{ $selectedLocation := .LocationsFilter.LocationChecked }}
+                        {{ range $key, $value := .LocationsFilter.Locations }}
+                            <option
+                            {{ if eq $selectedLocation $key }}
+                                selected
+                            {{ end }}
+                             value="{{$key}}">{{$key}}</option>
+                        {{ end }}
+                    </select>
+                </div>
+            </div>
+
+            <!-- Submit Holder -->
+            <div class="submit-holder">
+                <a class="reset" href="/">Reset</a>
+                <input type="submit" value="Submit" class="filter-submit">
+            </div>
+
+        </form>
+    </div>
+{{ end }}
