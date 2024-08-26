@@ -186,11 +186,6 @@ header nav .dark-mode-btn i {
     transition-duration: var(--drt);
 }
 
-.buttons .btn:hover {
-    background-color: var(--act-color);
-    color: var(--bg-color);
-}
-
 /* Hero Styling */
 .hero {
     min-height: 100vh;

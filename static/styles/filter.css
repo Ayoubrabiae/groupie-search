@@ -1,3 +1,8 @@
+/*Filter Button */
+.filter-btn:hover {
+    background-color: var(--act-color);
+    color: var(--bg-color);
+}
 /* Filter Holder Styling */
 .filters-holder {
     position: fixed;
