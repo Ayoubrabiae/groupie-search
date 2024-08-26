@@ -14,7 +14,10 @@
 
     <section class="artists">
         <h2 class="title">Artists</h2>
-        {{ template "filter-btn" }}
+        <div class="buttons">
+            {{ template "filter-btn" }}
+            {{ template "search-btn" }}
+        </div>
         {{ template "filterHolder" .Filter }}
         <div class="container">
             {{if .Artists}}
