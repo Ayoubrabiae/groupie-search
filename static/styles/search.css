@@ -1,0 +1,26 @@
+.search-btn {
+    padding: 0px !important;
+}
+
+.search-btn input {
+    border: none;
+    outline: none;
+    font-family: inherit;
+    font-size: 16px;
+    width: 0px;
+    padding: 0px;
+    transition-duration: var(--drt);
+}
+
+.search-btn i {
+    padding: 5px 10px 3px;
+}
+
+.search-btn.show input {
+    width: 300px;
+    padding: 0 10px;
+}
+
+.search-btn.show i {
+    color: red;
+}

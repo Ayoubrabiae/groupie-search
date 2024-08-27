@@ -7,6 +7,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="/static/styles/master.css">
     <link rel="stylesheet" href="/static/styles/filter.css">
+    <link rel="stylesheet" href="/static/styles/search.css">
 </head>
 <body>
     {{ template "header" }}
@@ -16,7 +17,7 @@
         <h2 class="title">Artists</h2>
         <div class="buttons">
             {{ template "filter-btn" }}
-            {{ template "search-btn" }}
+            {{ template "search-holder" }}
         </div>
         {{ template "filterHolder" .Filter }}
         <div class="container">
@@ -36,5 +37,6 @@
 
     <script type="module" src="/static/scripts/main.js"></script>
     <script type="module" src="/static/scripts/filter.js"></script>
+    <script type="module" src="/static/scripts/search.js"></script>
 </body>
 </html>

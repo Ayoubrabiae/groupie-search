@@ -172,6 +172,7 @@ header nav .dark-mode-btn i {
     align-items: center;
     justify-content: center;
     margin-bottom: 50px;
+    padding: 0 15px;
 }
 
 .buttons .btn {
