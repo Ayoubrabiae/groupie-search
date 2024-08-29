@@ -70,10 +70,10 @@ if (searchInp) {
 
         for (let r of res) {
             for (let d of r.Data) {
-                if (d.Kind === "member") {
-                    suggestions.append(creatSuggesition(val, r.Value, `${d.Kind} of ${d.Name}`, d.Id))
-                } else {
+                if (d.Kind === "artist") {
                     suggestions.append(creatSuggesition(val, r.Value, d.Kind, d.Id))
+                } else {
+                    suggestions.append(creatSuggesition(val, r.Value, `${d.Kind} of ${d.Name}`, d.Id))
                 }
             }
         }
