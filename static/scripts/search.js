@@ -57,7 +57,6 @@ if (searchInp) {
         }
 
         const res = await search(val)
-        console.log(res)
 
         if (!res.length) {
             const suggestion = document.createElement("p")
