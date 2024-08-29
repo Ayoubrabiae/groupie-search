@@ -9,7 +9,7 @@ import (
 	"groupie-tracker/data"
 )
 
-var IdPath = regexp.MustCompile(`^/artists/(\d+)$`)
+var IdPath = regexp.MustCompile(`^/artists/(\d{1,10})$`)
 
 func ProfileHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
