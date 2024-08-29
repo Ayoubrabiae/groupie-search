@@ -59,7 +59,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		ErrorHandler(w, "Internal server Error", http.StatusInternalServerError)
 		return
 	}
-	
+
 	data.InsertArtists(data.SearchTrie, artists)
 
 	filterParams, err := data.GetFilterParams(artists, r.URL.Query())
@@ -71,7 +71,6 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	if len(r.URL.Query()) != 0 {
 		artists = data.FilterArtists(artists, r.URL.Query())
 	}
-
 
 	homeData := struct {
 		Artists []data.ArtistType

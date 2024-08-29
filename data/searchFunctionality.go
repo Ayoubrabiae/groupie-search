@@ -7,11 +7,15 @@ import (
 
 func InsertArtists(trie ArtistsTrie, artists []ArtistType) {
 	for _, ar := range artists {
-		trie.Insert(nil, strings.ToLower(ar.Name), ar.Id, "artist", ar.Name)
-		trie.Insert(nil, strings.ToLower(ar.FirstAlbum), ar.Id, "first album", ar.Name)
-		trie.Insert(nil, strings.ToLower(strconv.Itoa(ar.CreationDate)), ar.Id, "creation date", ar.Name)
+		artistName := strings.TrimSpace(strings.ToLower(ar.Name))
+
+		trie.Insert(nil, artistName, ar.Id, "artist", ar.Name)
+		trie.Insert(nil, ar.FirstAlbum, ar.Id, "first album", ar.Name)
+		trie.Insert(nil, strconv.Itoa(ar.CreationDate), ar.Id, "creation date", ar.Name)
 		for _, m := range ar.Members {
-			trie.Insert(nil, strings.ToLower(m), ar.Id, "member", ar.Name)
+			memberName := strings.TrimSpace(strings.ToLower(m))
+
+			trie.Insert(nil, memberName, ar.Id, "member", ar.Name)
 		}
 	}
 }

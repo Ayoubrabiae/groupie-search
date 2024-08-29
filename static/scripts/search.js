@@ -56,9 +56,10 @@ if (searchInp) {
             return
         }
 
-        const data = await search(val)
+        const res = await search(val)
+        console.log(res)
 
-        if (!data.length) {
+        if (!res.length) {
             const suggestion = document.createElement("p")
             suggestion.classList.add("sug")
             suggestion.textContent = `${val} Not Found`
@@ -67,8 +68,15 @@ if (searchInp) {
             return
         }
 
-        for (let d of data) {
-            suggestions.append(creatSuggesition(val, d.Value, d.Kind, d.Id))
+
+        for (let r of res) {
+            for (let d of r.Data) {
+                if (d.Kind === "member") {
+                    suggestions.append(creatSuggesition(val, r.Value, `${d.Kind} of ${d.Name}`, d.Id))
+                } else {
+                    suggestions.append(creatSuggesition(val, r.Value, d.Kind, d.Id))
+                }
+            }
         }
 
     })

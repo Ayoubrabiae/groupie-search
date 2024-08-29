@@ -1,11 +1,19 @@
 package data
 
+import (
+	"slices"
+)
+
+type ArtistNodeData struct {
+	Id   int
+	Kind string
+	Name string
+}
+
 type ArtistNode struct {
 	Childs map[byte]*ArtistNode
-	Id     int
-	Kind   string
+	Data   []ArtistNodeData
 	End    bool
-	Name   string
 }
 
 type ArtistsTrie struct {
@@ -13,9 +21,7 @@ type ArtistsTrie struct {
 }
 
 type ArtistLeaf struct {
-	Name  string
-	Id    int
-	Kind  string
+	Data  []ArtistNodeData
 	Value string
 }
 
@@ -30,9 +36,9 @@ func NewTrie() *ArtistsTrie {
 func (t *ArtistsTrie) Insert(node *ArtistNode, word string, id int, kind string, name string) {
 	if word == "" {
 		node.End = true
-		node.Id = id
-		node.Kind = kind
-		node.Name = name
+		if !(slices.Contains(node.Data, ArtistNodeData{id, kind, name})) {
+			node.Data = append(node.Data, ArtistNodeData{id, kind, name})
+		}
 		return
 	}
 
@@ -51,7 +57,7 @@ func search(node ArtistNode, str string, arr *[]ArtistLeaf) {
 		search(*node.Childs[char], str+string(char), arr)
 	}
 	if node.End {
-		*arr = append(*arr, ArtistLeaf{Name: node.Name, Id: node.Id, Kind: node.Kind, Value: str})
+		*arr = append(*arr, ArtistLeaf{Data: node.Data, Value: str})
 	}
 }
 

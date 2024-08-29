@@ -9,6 +9,9 @@ import (
 )
 
 func SuggestSearch(w http.ResponseWriter, r *http.Request) {
+	if r.Header.Get("Sec-Fetch-Mode") != "cors" || r.Header.Get("Sec-Fetch-Site") != "same-origin" {
+		ErrorHandler(w, "Access Denied", http.StatusNotFound)
+	}
 	val := r.URL.Query().Get("q")
 
 	suggestions := data.SearchTrie.Suggest(nil, strings.ToLower(val))

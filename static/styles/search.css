@@ -75,10 +75,15 @@
     border-bottom: 2px solid #dddddd;
 }
 
-.search-holder .suggestions .sug:hover {
-    background-color: var(--act-color);
+.search-holder .suggestions a.sug:hover,
+.search-holder .suggestions a.sug:hover .complete {
+    color: var(--act-color);
 }
 
 .search-holder .suggestions .sug .complete {
     color: darkgray;
+}
+
+.search-holder .suggestions .sug .type {
+    font-size: 14px;
 }
