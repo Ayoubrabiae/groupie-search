@@ -23,7 +23,7 @@ func checkErrors(w http.ResponseWriter, r *http.Request) bool {
 	return true
 }
 
-func parseFiles(w http.ResponseWriter, r *http.Request) (*template.Template, bool) {
+func parseFiles(w http.ResponseWriter) (*template.Template, bool) {
 	tmp, err := template.ParseFiles("./pages/index.html")
 	if err != nil {
 		ErrorHandler(w, "Internal Server error", http.StatusInternalServerError)
@@ -46,7 +46,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tmp, ok := parseFiles(w, r)
+	tmp, ok := parseFiles(w)
 
 	if !ok {
 		return
