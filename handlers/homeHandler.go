@@ -9,34 +9,52 @@ import (
 	"groupie-tracker/funcs"
 )
 
-func HomeHandler(w http.ResponseWriter, r *http.Request) {
+func checkErrors(w http.ResponseWriter, r *http.Request) bool {
 	if r.URL.Path != "/" {
 		ErrorHandler(w, "Page Not Found", http.StatusNotFound)
-		return
+		return false
 	}
 
 	if r.Method != http.MethodGet {
 		ErrorHandler(w, "Method Not Allowed", http.StatusMethodNotAllowed)
-		return
+		return false
 	}
 
+	return true
+}
+
+func parseFiles(w http.ResponseWriter, r *http.Request) (*template.Template, bool) {
 	tmp, err := template.ParseFiles("./pages/index.html")
 	if err != nil {
 		ErrorHandler(w, "Internal Server error", http.StatusInternalServerError)
 		fmt.Println("When we parse the index.html")
-		return
+		return nil, false
 	}
 
 	tmp, err = tmp.ParseGlob("./templates/*.html")
 	if err != nil {
 		ErrorHandler(w, "Internal Server error", http.StatusInternalServerError)
 		fmt.Println("When we parse all templates")
+		return nil, false
+	}
+
+	return tmp, true
+}
+
+func HomeHandler(w http.ResponseWriter, r *http.Request) {
+	if !checkErrors(w, r) {
+		return
+	}
+
+	tmp, ok := parseFiles(w, r)
+
+	if !ok {
 		return
 	}
 
 	var artists []data.ArtistType
 
-	err = funcs.GetAndParse(data.MainData.Artists, &artists)
+	err := funcs.GetAndParse(data.MainData.Artists, &artists)
 	if err != nil {
 		ErrorHandler(w, "Internal server Error", http.StatusInternalServerError)
 		return
@@ -51,6 +69,8 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	if len(r.URL.Query()) != 0 {
 		artists = data.FilterArtists(artists, r.URL.Query())
 	}
+
+	data.InsertArtists(data.SearchTrie, artists)
 
 	homeData := struct {
 		Artists []data.ArtistType

@@ -79,3 +79,5 @@ func (t *ArtistsTrie) Suggest(node *ArtistNode, str string) []ArtistLeaf {
 	}
 	return []ArtistLeaf{}
 }
+
+var SearchTrie ArtistsTrie = *NewTrie()

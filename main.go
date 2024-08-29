@@ -11,13 +11,6 @@ import (
 )
 
 func main() {
-	trie := data.NewTrie()
-	trie.Insert(trie.Root, "Queen", 10, "Artist", "Queen")
-	trie.Insert(trie.Root, "Qamel", 10, "Member", "Queen")
-	trie.Insert(trie.Root, "Pink Floyed", 15, "Artist", "Pink Floyed")
-
-	fmt.Println(trie.Suggest(nil, "Q"))
-
 	err := funcs.GetAndParse("https://groupietrackers.herokuapp.com/api", &data.MainData)
 	if err != nil {
 		fmt.Println(err)
