@@ -41,6 +41,23 @@ func parseFiles(w http.ResponseWriter) (*template.Template, bool) {
 	return tmp, true
 }
 
+func IntializeTrie(artists []data.ArtistType) error {
+	var locationsHolder struct {
+		Index []data.LocationsType `json:"index"`
+	}
+	err := funcs.GetAndParse(data.MainData.Locations, &locationsHolder)
+	if err != nil {
+		return err
+	}
+
+	data.InsertArtists(data.SearchTrie, artists)
+
+	artistsSlice := data.ArtistsStructToSlice(artists)
+	data.InsertLocations(data.SearchTrie, locationsHolder.Index, artistsSlice)
+
+	return nil
+}
+
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	if !checkErrors(w, r) {
 		return
@@ -60,19 +77,10 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var locationsHolder struct {
-		Index []data.LocationsType `json:"index"`
-	}
-	err = funcs.GetAndParse(data.MainData.Locations, &locationsHolder)
-	if err != nil {
-		ErrorHandler(w, "Internal server Error", http.StatusInternalServerError)
+	if IntializeTrie(artists) != nil {
+		ErrorHandler(w, "Internal Server Error", http.StatusInternalServerError)
 		return
 	}
-
-	data.InsertArtists(data.SearchTrie, artists)
-
-	artistsSlice := data.ArtistsStructToSlice(artists)
-	data.InsertLocations(data.SearchTrie, locationsHolder.Index, artistsSlice)
 
 	filterParams, err := data.GetFilterParams(artists, r.URL.Query())
 	if err != nil {
