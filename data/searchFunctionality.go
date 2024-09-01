@@ -27,3 +27,24 @@ func InsertLocations(trie ArtistsTrie, locationStruct []LocationsType, artists [
 		}
 	}
 }
+
+func Search(artists []ArtistType, value string) []ArtistType {
+	suggetions := SearchTrie.Suggest(nil, value)
+
+	ids := map[int]bool{}
+	for _, s := range suggetions {
+		for _, artist := range s.Data {
+			ids[artist.Id] = true
+		}
+	}
+
+	res := []ArtistType{}
+
+	for _, artist := range artists {
+		if ids[artist.Id] {
+			res = append(res, artist)
+		}
+	}
+
+	return res
+}

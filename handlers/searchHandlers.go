@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"strings"
 
@@ -24,13 +23,4 @@ func SuggestSearch(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Write(data)
-}
-
-func SearchHandler(w http.ResponseWriter, r *http.Request) {
-	val := r.URL.Query().Get("q")
-	suggestions := data.SearchTrie.Suggest(nil, strings.ToLower(val))
-
-	fmt.Println(suggestions)
-
-	http.Redirect(w, r, "/", http.StatusSeeOther)
 }

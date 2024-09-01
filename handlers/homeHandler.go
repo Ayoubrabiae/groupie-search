@@ -89,6 +89,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if len(r.URL.Query()) != 0 {
+		artists = data.Search(artists, r.URL.Query().Get("q"))
 		artists = data.FilterArtists(artists, r.URL.Query())
 	}
 
