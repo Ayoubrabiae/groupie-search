@@ -60,7 +60,19 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	var locationsHolder struct {
+		Index []data.LocationsType `json:"index"`
+	}
+	err = funcs.GetAndParse(data.MainData.Locations, &locationsHolder)
+	if err != nil {
+		ErrorHandler(w, "Internal server Error", http.StatusInternalServerError)
+		return
+	}
+
 	data.InsertArtists(data.SearchTrie, artists)
+
+	artistsSlice := data.ArtistsStructToSlice(artists)
+	data.InsertLocations(data.SearchTrie, locationsHolder.Index, artistsSlice)
 
 	filterParams, err := data.GetFilterParams(artists, r.URL.Query())
 	if err != nil {

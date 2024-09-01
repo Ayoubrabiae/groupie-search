@@ -78,3 +78,13 @@ func LoadLocations() (map[string]bool, error) {
 
 	return res, nil
 }
+
+func ArtistsStructToSlice(artists []ArtistType) []string {
+	res := []string{}
+
+	for _, artist := range artists {
+		res = append(res, artist.Name)
+	}
+
+	return res
+}

@@ -23,6 +23,8 @@ func InsertArtists(trie ArtistsTrie, artists []ArtistType) {
 func InsertLocations(trie ArtistsTrie, locationStruct []LocationsType, artists []string) {
 	for _, locations := range locationStruct {
 		for _, loc := range locations.Locations {
+			loc = strings.ReplaceAll(strings.ToLower(loc), "_", " ")
+			loc = strings.ReplaceAll(loc, "-", " ")
 			trie.Insert(nil, strings.ToLower(loc), locations.Id, "location", artists[locations.Id-1])
 		}
 	}
