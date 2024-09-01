@@ -53,7 +53,7 @@ func main() {
 	http.HandleFunc("/about", handlers.AboutHandler)
 	http.HandleFunc("/locations/", handlers.LocationsHandler)
 	http.HandleFunc("/suggest-search", handlers.SuggestSearch)
-	http.HandleFunc("/search", handlers.SuggestSearch)
+	http.HandleFunc("/search", handlers.SearchHandler)
 	fmt.Println("http://localhost:" + port)
 	log.Fatal(http.ListenAndServe(":"+port, http.DefaultServeMux))
 }

@@ -27,7 +27,7 @@ func SuggestSearch(w http.ResponseWriter, r *http.Request) {
 }
 
 func SearchHandler(w http.ResponseWriter, r *http.Request) {
-	val := r.URL.Query().Get("s")
+	val := r.URL.Query().Get("q")
 	suggestions := data.SearchTrie.Suggest(nil, strings.ToLower(val))
 
 	fmt.Println(suggestions)
