@@ -14,7 +14,7 @@ filterBtn.addEventListener("click", showFilters)
 filterCancelBtn.addEventListener("click", hideFilters)
 
 // Range functionality
-const gap = 3
+const gap = 2
 const creationRangeInputs = document.querySelectorAll(".creation-filter .range-input input")
 const creationRange = document.querySelector(".creation-filter .slider .progress")
 const creationResultRange = document.querySelector(".creation-filter .filter-result")
