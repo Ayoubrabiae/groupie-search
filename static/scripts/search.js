@@ -22,6 +22,8 @@ if (searchBtn) {
 const search = async(value) => {
     const res = await fetch(`/suggest-search?q=${value}`)
 
+    console.log(value)
+
     return await res.json()
 }
 
@@ -52,11 +54,12 @@ if (searchInp) {
         suggestions.innerHTML = ""
         const val = e.currentTarget.value
 
-        if (val == "") {
+        console.log(val.split("").some(e => e != " "))
+        if (val == "" || !val.split("").some(e => e != " ")) {
             return
         }
 
-        const res = await search(val)
+        const res = await search(val.trimLeft())
 
         if (!res.length) {
             const suggestion = document.createElement("p")

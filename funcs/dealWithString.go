@@ -20,3 +20,12 @@ func DateToInt(date string) (int, error) {
 
 	return year, nil
 }
+
+func IsSpace(s string) bool {
+	for _, char := range s {
+		if char != ' ' {
+			return false
+		}
+	}
+	return true
+}

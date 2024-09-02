@@ -2,10 +2,12 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strings"
 
 	"groupie-tracker/data"
+	"groupie-tracker/funcs"
 )
 
 func SuggestSearch(w http.ResponseWriter, r *http.Request) {
@@ -13,6 +15,12 @@ func SuggestSearch(w http.ResponseWriter, r *http.Request) {
 		ErrorHandler(w, "Access Denied", http.StatusNotFound)
 	}
 	val := r.URL.Query().Get("q")
+
+	if funcs.IsSpace(val) {
+		return
+	}
+
+	fmt.Println("|" + val + "|")
 
 	suggestions := data.SearchTrie.Suggest(nil, strings.ToLower(val))
 
