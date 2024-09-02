@@ -22,7 +22,7 @@ if (searchBtn) {
 const search = async(value) => {
     const res = await fetch(`/suggest-search?q=${value}`)
 
-    console.log(value)
+    console.log(value+"|")
 
     return await res.json()
 }
