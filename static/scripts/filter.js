@@ -1,3 +1,5 @@
+import { heroElement } from "./main.js"
+
 const filterBtn = document.querySelector(".filter-btn")
 const filterHolder = document.querySelector(".filters-holder")
 const filterCancelBtn = document.querySelector(".filters-exit-btn")
@@ -9,6 +11,12 @@ const hideFilters = () => {
     filterHolder.classList.remove("show")
     document.body.style.overflow = ""
 }
+
+filterHolder.addEventListener("click", e => {
+    if (e.target.classList.contains("filters-holder")) {
+        hideFilters()
+    }
+})
 
 filterBtn.addEventListener("click", showFilters)
 filterCancelBtn.addEventListener("click", hideFilters)

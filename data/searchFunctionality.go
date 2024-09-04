@@ -29,7 +29,7 @@ func InsertLocations(trie ArtistsTrie, locationStruct []LocationsType, artists [
 }
 
 func Search(artists []ArtistType, value string) []ArtistType {
-	suggetions := SearchTrie.Suggest(nil, value)
+	suggetions := SearchTrie.Suggest(nil, strings.ToLower(value))
 
 	ids := map[int]bool{}
 	for _, s := range suggetions {

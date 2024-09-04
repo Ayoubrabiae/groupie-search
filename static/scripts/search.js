@@ -52,14 +52,17 @@ const creatSuggesition = (value, complete, type, id) => {
 if (searchInp) {
     searchInp.addEventListener("input", async (e) => {
         suggestions.innerHTML = ""
-        const val = e.currentTarget.value
+        let val = e.currentTarget.value
 
         console.log(val.split("").some(e => e != " "))
         if (val == "" || !val.split("").some(e => e != " ")) {
             return
         }
+        val = val.split(" ").filter(e => e != "").join(" ")
 
-        const res = await search(val.trimLeft())
+        const res = await search(val)
+
+        console.log(res)
 
         if (!res.length) {
             const suggestion = document.createElement("p")

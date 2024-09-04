@@ -28,7 +28,7 @@ if (darkModeBtn) {
 }
 
 // Hero functionality
-const heroElement = document.querySelector(".hero")
+export const heroElement = document.querySelector(".hero")
 const imagesHolder = document.querySelector(".hero .images")
 const artistImages = ["queen.jpeg", "soja.jpeg", "pinkfloyd.jpeg", "scorpions.jpeg",
     "xxxtentacion.jpeg", "macmiller.jpeg", "joynerlucas.jpeg", "kencricklamar.jpeg",
@@ -41,7 +41,6 @@ const artistImages = ["queen.jpeg", "soja.jpeg", "pinkfloyd.jpeg", "scorpions.jp
     "coldplay.jpeg", "maroon5.jpeg", "twentyonepilots.jpeg", "therollingstones.jpeg", "muse.jpeg", "foofighters.jpeg", "thechainsmokers.jpeg"]
 
 const addImages = (element, images, len, width) => {
-    console.log({len})
     element.innerHTML = ""
     images.forEach((imageName, i) => {
         if (len <= i) {
