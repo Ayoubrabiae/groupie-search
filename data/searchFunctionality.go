@@ -3,6 +3,8 @@ package data
 import (
 	"strconv"
 	"strings"
+
+	"groupie-tracker/funcs"
 )
 
 func InsertArtists(trie ArtistsTrie, artists []ArtistType) {
@@ -13,7 +15,7 @@ func InsertArtists(trie ArtistsTrie, artists []ArtistType) {
 		trie.Insert(nil, ar.FirstAlbum, ar.Id, "first album", ar.Name)
 		trie.Insert(nil, strconv.Itoa(ar.CreationDate), ar.Id, "creation date", ar.Name)
 		for _, m := range ar.Members {
-			memberName := strings.TrimSpace(strings.ToLower(m))
+			memberName := funcs.RemoveSpace(m)
 
 			trie.Insert(nil, memberName, ar.Id, "member", ar.Name)
 		}
@@ -23,13 +25,13 @@ func InsertArtists(trie ArtistsTrie, artists []ArtistType) {
 func InsertLocations(trie ArtistsTrie, locationStruct []LocationsType, artists []string) {
 	for _, locations := range locationStruct {
 		for _, loc := range locations.Locations {
-			trie.Insert(nil, strings.ToLower(loc), locations.Id, "location", artists[locations.Id-1])
+			trie.Insert(nil, funcs.RemoveSpace(loc), locations.Id, "location", artists[locations.Id-1])
 		}
 	}
 }
 
 func Search(artists []ArtistType, value string) []ArtistType {
-	suggetions := SearchTrie.Suggest(nil, strings.ToLower(value))
+	suggetions := SearchTrie.Suggest(nil, funcs.RemoveSpace(value))
 
 	ids := map[int]bool{}
 	for _, s := range suggetions {

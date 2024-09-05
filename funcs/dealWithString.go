@@ -29,3 +29,10 @@ func IsSpace(s string) bool {
 	}
 	return true
 }
+
+func RemoveSpace(s string) string {
+	s = strings.Join(strings.Fields(s), " ")
+	s = strings.ToLower(s)
+
+	return s
+}
