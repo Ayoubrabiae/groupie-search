@@ -1,52 +1,27 @@
 package data
 
-import (
-	"strconv"
-	"strings"
+import "groupie-tracker/funcs"
 
-	"groupie-tracker/funcs"
-)
-
-func InsertArtists(trie ArtistsTrie, artists []ArtistType) {
-	for _, ar := range artists {
-		artistName := strings.TrimSpace(strings.ToLower(ar.Name))
-
-		trie.Insert(nil, artistName, ar.Id, "artist", ar.Name)
-		trie.Insert(nil, ar.FirstAlbum, ar.Id, "first album", ar.Name)
-		trie.Insert(nil, strconv.Itoa(ar.CreationDate), ar.Id, "creation date", ar.Name)
-		for _, m := range ar.Members {
-			memberName := funcs.RemoveSpace(m)
-
-			trie.Insert(nil, memberName, ar.Id, "member", ar.Name)
-		}
-	}
-}
-
-func InsertLocations(trie ArtistsTrie, locationStruct []LocationsType, artists []string) {
-	for _, locations := range locationStruct {
-		for _, loc := range locations.Locations {
-			trie.Insert(nil, funcs.RemoveSpace(loc), locations.Id, "location", artists[locations.Id-1])
-		}
-	}
-}
-
-func Search(artists []ArtistType, value string) []ArtistType {
-	suggetions := SearchTrie.Suggest(nil, funcs.RemoveSpace(value))
-
-	ids := map[int]bool{}
-	for _, s := range suggetions {
-		for _, artist := range s.Data {
-			ids[artist.Id] = true
-		}
+func FillSearchStorage() error {
+	err := funcs.GetAndParse(MainData.Artists, &SearchStorage.Artists)
+	if err != nil {
+		return err
 	}
 
-	res := []ArtistType{}
-
-	for _, artist := range artists {
-		if ids[artist.Id] {
-			res = append(res, artist)
-		}
+	err = funcs.GetAndParse(MainData.Locations, &SearchStorage.Locations)
+	if err != nil {
+		return err
 	}
 
-	return res
+	err = funcs.GetAndParse(MainData.Dates, &SearchStorage.Dates)
+	if err != nil {
+		return err
+	}
+
+	err = funcs.GetAndParse(MainData.Relations, &SearchStorage.Relations)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
