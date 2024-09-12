@@ -2,15 +2,16 @@ package data
 
 type SearchStorageType struct {
 	Artists   []ArtistType
-	Locations LocationsType
-	Relations RelationsType
-	Dates     DatesType
+	Locations struct {
+		Index []LocationsType `json:"index"`
+	}
 }
 
 type SearchItem struct {
-	Id   int
-	Name string
-	Kind string
+	Id    int
+	Name  string
+	Value string
+	Kind  string
 }
 
 type SearchResult struct {

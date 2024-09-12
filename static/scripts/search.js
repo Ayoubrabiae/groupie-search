@@ -27,7 +27,7 @@ const search = async(value) => {
     return await res.json()
 }
 
-const creatSuggesition = (value, complete, type, id) => {
+const creatSuggesition = (value, type, id) => {
     const suggestion = document.createElement("a")
     suggestion.classList.add("sug")
     suggestion.href = `/artists/${id}`
@@ -35,11 +35,6 @@ const creatSuggesition = (value, complete, type, id) => {
     const valueElement = document.createElement("span")
     valueElement.classList.add("name")
     valueElement.textContent = value
-    
-    const completeElement = document.createElement("span")
-    completeElement.classList.add("complete")
-    completeElement.textContent = complete
-    valueElement.append(completeElement)
     
     const typeElement = document.createElement("span")
     typeElement.classList.add("type")
@@ -62,8 +57,6 @@ if (searchInp) {
 
         const res = await search(val)
 
-        console.log(res)
-
         if (!res.length) {
             const suggestion = document.createElement("p")
             suggestion.classList.add("sug")
@@ -75,13 +68,11 @@ if (searchInp) {
 
 
         for (let r of res) {
-            for (let d of r.Data) {
-                if (d.Kind === "artist") {
-                    suggestions.append(creatSuggesition(val, r.Value, d.Kind, d.Id))
+                if (r.Kind === "band") {
+                    suggestions.append(creatSuggesition(r.Value, r.Kind, r.Id))
                 } else {
-                    suggestions.append(creatSuggesition(val, r.Value, `${d.Kind} of ${d.Name}`, d.Id))
+                    suggestions.append(creatSuggesition(r.Value, `${r.Kind} of ${r.Name}`, r.Id))
                 }
-            }
         }
 
     })

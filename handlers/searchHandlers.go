@@ -19,9 +19,9 @@ func SuggestSearch(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	suggestions := data.SearchTrie.Suggest(nil, strings.ToLower(val))
+	suggestions := data.SearchStorage.Suggest(strings.ToLower(val))
 
-	data, err := json.Marshal(suggestions)
+	data, err := json.Marshal(suggestions.Result)
 	if err != nil {
 		ErrorHandler(w, "Internal Server Error", http.StatusInternalServerError)
 		return

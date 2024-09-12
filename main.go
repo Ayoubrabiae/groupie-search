@@ -35,7 +35,7 @@ func main() {
 		return
 	}
 
-	err = handlers.IntializeTrie(artists)
+	err = data.FillSearchStorage()
 	if err != nil {
 		fmt.Println(err)
 		http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {

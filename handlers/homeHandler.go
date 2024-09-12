@@ -60,6 +60,12 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	err = data.FillSearchStorage()
+	if err != nil {
+		ErrorHandler(w, "Internal server Error", http.StatusInternalServerError)
+		return
+	}
+
 	filterParams, err := data.GetFilterParams(artists, r.URL.Query())
 	if err != nil {
 		ErrorHandler(w, "Internal server Error", http.StatusInternalServerError)
@@ -67,7 +73,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if len(r.URL.Query()) != 0 {
-		artists = data.Search(artists, r.URL.Query().Get("q"))
+		//artists = data.Search(artists, r.URL.Query().Get("q"))
 		artists = data.FilterArtists(artists, r.URL.Query())
 	}
 

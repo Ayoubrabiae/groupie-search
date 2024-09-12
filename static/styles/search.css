@@ -39,7 +39,7 @@
 }
 
 .search-holder .suggestions {
-    display: none;    
+    display: none;
     position: absolute;
     width: 100%;
     left: 0;
@@ -61,7 +61,7 @@
     background: transparent;
 }
 
-.search-btn.show + .suggestions {
+.search-btn.show+.suggestions {
     display: block;
 }
 
@@ -86,10 +86,6 @@
 .search-holder .suggestions a.sug:hover,
 .search-holder .suggestions a.sug:hover .complete {
     color: var(--act-color);
-}
-
-.search-holder .suggestions .sug .complete {
-    color: darkgray;
 }
 
 .search-holder .suggestions .sug .type {
