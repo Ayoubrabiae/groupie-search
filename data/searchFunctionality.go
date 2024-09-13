@@ -60,6 +60,10 @@ func (s *SearchStorageType) Suggest(value string) SearchResult {
 }
 
 func (s *SearchStorageType) Search(artists []ArtistType, value string) []ArtistType {
+	if strings.TrimSpace(value) == "" {
+		return artists
+	}
+
 	res := []ArtistType{}
 	suggestions := s.Suggest(value)
 	searchMap := map[int]bool{}
@@ -74,5 +78,5 @@ func (s *SearchStorageType) Search(artists []ArtistType, value string) []ArtistT
 		}
 	}
 
-	return artists
+	return res
 }
