@@ -83,8 +83,7 @@
     border-bottom: 2px solid #dddddd;
 }
 
-.search-holder .suggestions a.sug:hover,
-.search-holder .suggestions a.sug:hover .complete {
+.search-holder .suggestions a.sug:hover {
     color: var(--act-color);
 }
 

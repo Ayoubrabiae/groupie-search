@@ -58,3 +58,21 @@ func (s *SearchStorageType) Suggest(value string) SearchResult {
 
 	return res
 }
+
+func (s *SearchStorageType) Search(artists []ArtistType, value string) []ArtistType {
+	res := []ArtistType{}
+	suggestions := s.Suggest(value)
+	searchMap := map[int]bool{}
+
+	for _, sug := range suggestions.Result {
+		searchMap[sug.Id] = true
+	}
+
+	for _, artist := range artists {
+		if searchMap[artist.Id] {
+			res = append(res, artist)
+		}
+	}
+
+	return artists
+}

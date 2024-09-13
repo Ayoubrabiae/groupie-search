@@ -7,9 +7,9 @@
     margin: 0;
 }
 
-/* html {
+html {
     scroll-behavior: smooth;
-} */
+}
 
 body {
     --act-color: #2cbdff;
@@ -519,8 +519,9 @@ footer {
 @keyframes appear {
     0% {
         transform: translateX(-150px);
-        opacity: 0; 
+        opacity: 0;
     }
+
     100% {
         transform: translateX(0);
         opacity: 1;
