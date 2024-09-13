@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,9 +10,12 @@
     <link rel="stylesheet" href="/static/styles/filter.css">
     <link rel="stylesheet" href="/static/styles/search.css">
 </head>
+
 <body>
     {{ template "header" }}
+    {{ if ne .Params true }}
     {{ template "hero" }}
+    {{ end }}
 
     <section class="artists">
         <h2 class="title" id="artists">Artists</h2>
@@ -19,18 +23,21 @@
             {{ template "filter-btn" }}
             {{ template "search-holder" }}
         </div>
+        {{ if .Params }}
+        <a class="reset-btn" href="/"><span>Reset</span></a>
+        {{ end }}
         {{ template "filterHolder" .Filter }}
         <div class="container">
             {{if .Artists}}
-                {{ range .Artists }}
-                        {{ template "card" . }}
-                {{ end }}
+            {{ range .Artists }}
+            {{ template "card" . }}
+            {{ end }}
             {{else}}
-                <p class="filter-error">Sorry We Didn't find any matches</p>
+            <p class="filter-error">Sorry We Didn't find any matches</p>
             {{end}}
         </div>
     </section>
-    
+
     {{ template "topArrow" }}
 
     {{ template "footer"}}
@@ -39,4 +46,5 @@
     <script type="module" src="/static/scripts/filter.js"></script>
     <script type="module" src="/static/scripts/search.js"></script>
 </body>
+
 </html>

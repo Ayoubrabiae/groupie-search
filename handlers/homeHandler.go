@@ -72,7 +72,10 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	params := false
+
 	if len(r.URL.Query()) != 0 {
+		params = true
 		artists = data.SearchStorage.Search(artists, r.URL.Query().Get("q"))
 		artists = data.FilterArtists(artists, r.URL.Query())
 	}
@@ -80,9 +83,11 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	homeData := struct {
 		Artists []data.ArtistType
 		Filter  data.FilterType
+		Params  bool
 	}{
 		Artists: artists,
 		Filter:  filterParams,
+		Params:  params,
 	}
 
 	err = tmp.Execute(w, homeData)

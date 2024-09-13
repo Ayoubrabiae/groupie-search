@@ -340,6 +340,24 @@ header nav .dark-mode-btn i {
     padding: 10px;
 }
 
+.artists .reset-btn {
+    display: block;
+    border: 2px solid red;
+    color: red;
+    font-weight: bold;
+    padding: 4px 13px;
+    border-radius: 3px;
+    flex-wrap: wrap;
+    width: fit-content;
+    margin: -20px auto 40px;
+    opacity: 0.5;
+    transition-duration: var(--drt);
+}
+
+.artists .reset-btn:hover {
+    opacity: 1;
+}
+
 /* Top Arrow Styling */
 .top-arrow {
     position: fixed;
