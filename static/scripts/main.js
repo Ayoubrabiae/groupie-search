@@ -181,3 +181,19 @@ if (cardsExitBtn) {
         window.history.back()
     })
 }
+
+// Connection Error
+const showConnectionError = () => {
+    document.body.innerHTML = "<p style='text-align:center;height:100vh;display:flex;align-items:center;justify-content:center'>No internet connection Please Try again</p>"
+}
+
+if (!window.navigator.onLine) {
+    showConnectionError()
+}
+
+window.addEventListener("offline", () => {
+    showConnectionError()
+})
+window.addEventListener("online", () => {
+    window.location.reload()
+})
