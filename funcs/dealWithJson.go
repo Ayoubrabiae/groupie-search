@@ -2,11 +2,16 @@ package funcs
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 )
 
 func GetAndParse(url string, v any) error {
 	response, err := http.Get(url)
+	if response == nil {
+		return errors.New("internet connection")
+	}
+
 	if err != nil {
 		return err
 	}
